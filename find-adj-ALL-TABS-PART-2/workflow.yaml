@@ -1,0 +1,39 @@
+workflow-name: FindAdjacencies
+cluster-type: lsf
+cluster-max-wait: 15
+
+exit-email:
+  send: true
+
+input:
+  dvid:
+    server: "emdata4:8900" # PRODUCTION
+    uuid: a0dfa # Michal's node
+    segmentation-name: "segmentation"
+
+    # FIND BODY adjacencies
+    supervoxels: false
+
+  geometry:
+    message-block-shape: [128,256,256]
+    available-scales: [0,1,2,3,4,5,6,7]
+
+findadjacencies:
+  find-closest-using-scale: 2
+  cc-distance-threshold: 100.0
+
+  subset-label-groups: ../merge-groups/tables/label-groups-ALL-TABS-PART-2-psd1.csv
+  output-table: localized-edges-ALL-TABS-PART-2-a0dfa.csv
+
+## NO THROTTLING
+#
+#resource-manager:
+#  server: driver
+#  port: 5000
+#  config:
+#    read_reqs: 512
+#    read_data: 53687091200
+#
+#    # (This workflow doesn't write to DVID)
+#    write_reqs: 256
+#    write_data: 53687091200

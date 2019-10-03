@@ -1,0 +1,25 @@
+jobqueue:
+  lsf:
+    processes: 31
+    cores: 31
+    ncpus: 32
+    memory: '960GB' # 15 GB per slot, x2
+    mem: 480000000000
+    walltime: '72:00'
+    #job_extra:
+    #  - '-We 48:00'
+
+distributed:
+  scheduler:
+    work-stealing: True
+
+  worker:
+    # Disable memory-watching behavior until I can figure out why it seems to be wrong(?)
+    memory:
+      #target: 0.0 
+      #spill: 0.0
+      #pause: 0.0
+      terminate: 0.0
+
+  comm:
+    connect: 60s
